@@ -3,12 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hELLO flask</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
-    
+    <title>Investment Advisor</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-<h1>Hi my name is Tanay</h1>
+<body style="background-image: url('{{ url_for('static', filename='busi.jpg') }}');">
+    <h1>Welcome to Investment Advisor</h1>
 
+    <form action="/recommend" method="post">
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age" required><br>
+
+        <label for="income">Income:</label>
+        <input type="text" id="income" name="income" required><br>
+
+        <label for="goals">Financial Goals:</label>
+        <input type="text" id="goals" name="goals" required><br>
+
+        <label for="risk_tolerance">Risk Tolerance:</label>
+        <select id="risk_tolerance" name="risk_tolerance">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select><br>
+
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    <form action="/chat" method="post">
+        <label for="query">Ask a question:</label>
+        <input type="text" id="query" name="query" required><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
 </body>
 </html>
