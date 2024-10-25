@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 
-/* Body Styles */
+/* Background Styles */
 body {
     font-family: 'Comfortaa', sans-serif;
     font-weight: 300;
@@ -16,8 +16,8 @@ body {
     overflow: hidden; /* Prevent scrolling caused by positioning */
 }
 
-/* Background Overlay */
-.background-overlay {
+/* Blurred Background */
+body::before {
     content: "";
     position: absolute;
     left: 0;
@@ -84,6 +84,7 @@ body {
     background-color: #333; /* Darker background on hover */
 }
 
+/* Welcome Text Styles */
 .welcome-text {
     position: absolute; /* Position it relative to the body */
     left: 20px;       /* 20px from the left */
@@ -92,4 +93,12 @@ body {
     color: white;     /* Text color */
     text-align: left; /* Align text to the left */
     z-index: 10;      /* Ensure it appears above the blurred background */
+}
+
+/* Styling for the h1 inside .welcome-text */
+.welcome-text h1 {
+    font-size: 300px;   /* Set the font size to 300px */
+    font-weight: bold;  /* Make the text bold */
+    text-transform: uppercase; /* Convert text to uppercase */
+    margin: 0;         /* Remove default margin */
 }

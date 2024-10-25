@@ -1,0 +1,118 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and About Body */
+body {
+    font-family: 'Comfortaa', sans-serif;
+    background-color: #f0f0f0; /* Light background color for the whole page */
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.8); /* Translucent background */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar:hover {
+    background-color: rgba(0, 0, 0, 0.9); /* Darker background on hover */
+}
+
+.navbar .logo {
+    display: flex; /* Ensure flex display for alignment */
+    align-items: center; /* Center vertically */
+}
+
+.navbar .logo img {
+    height: 70px;  /* Adjust height as needed */
+    width: auto;   /* Maintain aspect ratio */
+    max-width: 100%;  /* Make sure it doesn’t exceed the parent width */
+    object-fit: contain; /* Keep the aspect ratio */
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar ul li {
+    display: inline;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.navbar ul li a:hover {
+    background-color: #333; /* Darker background on hover */
+}
+
+/* About Section */
+.about-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 70px; /* Space for fixed navbar */
+    overflow-y: auto; /* Allow scrolling */
+    height: calc(100vh - 60px); /* Full height minus navbar height */
+}
+
+.about-container {
+    width: 100%;
+}
+
+.about-item {
+    display: flex;
+    height: 300px; /* Fixed height for each item */
+    margin: 20px 0; /* Space between items */
+}
+
+.about-content {
+    background-color: black; /* Black background for text section */
+    color: white; /* White text */
+    padding: 20px;
+    width: 50%; /* Left half width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+}
+
+.about-image {
+    width: 50%; /* Right half width */
+}
+
+.about-image img {
+    width: 100%; /* Responsive image */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Cover the area */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .about-item {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        height: auto; /* Auto height for mobile */
+    }
+    
+    .about-content,
+    .about-image {
+        width: 100%; /* Full width on smaller screens */
+    }
+}

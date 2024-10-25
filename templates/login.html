@@ -3,61 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">  <!-- Updated line -->
 </head>
 <body>
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        </a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/login">User Login</a></li>
+        </ul>
+    </nav>
+    
+    <div class="form-wrapper">
+        <div class="form-container">
+            <div class="form" id="sign-in-form">
+                <h2>Sign In</h2>
+                <form action="#">
+                    <div class="form-control">
+                        <input type="text" required>
+                        <label>Email or phone number</label>
+                    </div>
+                    <div class="form-control">
+                        <input type="password" required>
+                        <label>Password</label>
+                    </div>
+                    <button type="submit">Sign In</button>
+                    <div class="form-help"> 
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember-me">
+                            <label for="remember-me">Remember me</label>
+                        </div>
+                        <a href="#">Need help?</a>
+                    </div>
+                </form>
+                <p>New to WealthWise? <a href="#" onclick="toggleForms()">Sign up now</a></p> 
+            </div>
 
-    <div class="container" id="loginForm">
-        <h1>User Login</h1>
-        <form id="usernameForm">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <button type="submit">Next</button>
-        </form>
-    </div>
-
-    <div class="container" id="detailsForm" style="display: none;">
-        <h1>Additional Information</h1>
-        <form id="infoForm">
-            <label for="profession">Profession:</label>
-            <input type="text" id="profession" name="profession" required>
-            <br>
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age" required>
-            <br>
-            <button type="submit">Submit</button>
-        </form>
+            <div class="form hidden" id="sign-up-form">
+                <h2>Sign Up</h2>
+                <form action="#">
+                    <div class="form-control">
+                        <input type="text" required>
+                        <label>Email or phone number</label>
+                    </div>
+                    <div class="form-control">
+                        <input type="password" required>
+                        <label>Password</label>
+                    </div>
+                    <div class="form-control">
+                        <input type="password" required>
+                        <label>Confirm Password</label>
+                    </div>
+                    <button type="submit" onclick="submitSignUp()">Finish</button>
+                    <p>Already have an account? <a href="#" onclick="toggleForms()">Sign In</a></p>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script>
-        const usernameForm = document.getElementById('usernameForm');
-        const detailsForm = document.getElementById('detailsForm');
-        const loginForm = document.getElementById('loginForm');
+        function toggleForms() {
+            const signInForm = document.getElementById('sign-in-form');
+            const signUpForm = document.getElementById('sign-up-form');
 
-        usernameForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+            signInForm.classList.toggle('hidden');
+            signUpForm.classList.toggle('hidden');
+        }
 
-            const username = document.getElementById('username').value;
-            if (username) {
-                // Hide the username form and show the details form
-                loginForm.style.display = 'none';
-                detailsForm.style.display = 'block';
-            }
-        });
-
-        detailsForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const profession = document.getElementById('profession').value;
-            const age = document.getElementById('age').value;
-
-            if (profession && age) {
-                alert('Username, profession, and age submitted successfully!');
-                // You can add further processing like sending this data to a server
-            }
-        });
+        function submitSignUp() {
+            alert('Account created! You can now sign in.');
+            toggleForms(); // Switch to sign-in form
+        }
     </script>
-
 </body>
 </html>

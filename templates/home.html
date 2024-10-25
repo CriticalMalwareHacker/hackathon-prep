@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Advisor</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        </a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/login">User Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="background-overlay"></div> <!-- This is the new background div -->
+
+    <div class="welcome-text">
+        <h1>Welcome to Investment Advisor</h1>
+    </div>
+
+</body>
+</html>

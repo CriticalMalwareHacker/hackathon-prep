@@ -6,7 +6,7 @@ app.secret_key = 'your_secret_key'  # Needed for flash messages
 # Route for the homepage
 @app.route('/')
 def home():
-    return render_template('main.html')
+    return render_template('home.html')  # Change main.html to home.html
 
 # Route for About Us page
 @app.route('/about')
@@ -39,7 +39,7 @@ def get_recommendations():
     # Input validation
     if not user_age.isdigit() or not user_income.isdigit():
         flash("Please enter valid numeric values for age and income.")
-        return render_template('main.html')
+        return render_template('home.html')  # Updated to home.html
 
     # Pass data to the recommendation function
     recommendations = recommend_investment(user_age, user_income, user_goals, risk_tolerance)
@@ -47,7 +47,7 @@ def get_recommendations():
     # Check if recommendations were returned
     if not recommendations:
         flash("No recommendations could be generated. Please try again.")
-        return render_template('main.html')
+        return render_template('home.html')  # Updated to home.html
 
     # Render a new template to show the recommendations
     return render_template('recommendations.html', recommendations=recommendations)
@@ -60,8 +60,7 @@ def chat():
 
     # Flashing the response for better user experience
     flash(f"Chatbot Response: {response}")
-    return render_template('main.html')
+    return render_template('home.html')  # Updated to home.html
 
 if __name__ == '__main__':
     app.run(debug=True)
-    
