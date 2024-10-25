@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="about-body">
+
+    <div class="about-container">
+        <h1 class="about-heading">ABOUT US</h1>
+        <div class="about-section">
+            <div class="about-item">
+                <img src="{{ url_for('static', filename='offer.jpg') }}" alt="What We Offer" class="about-image">
+                <h2>What We Offer</h2>
+                <p>We provide AI-powered financial advice tailored to your needs, backed by cutting-edge research and personalized data analysis.</p>
+            </div>
+            <div class="about-item">
+                <img src="{{ url_for('static', filename='deliver.jpg') }}" alt="How We Deliver" class="about-image">
+                <h2>How We Deliver</h2>
+                <p>Our automated system generates comprehensive financial plans, delivered instantly and based on real-time data.</p>
+            </div>
+            <div class="about-item">
+                <img src="{{ url_for('static', filename='methodology.jpg') }}" alt="Our Methodology" class="about-image">
+                <h2>Our Methodology</h2>
+                <p>We combine AI models and expert insights to ensure that our financial solutions are accurate, data-driven, and effective.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -7,42 +7,58 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body style="background-image: url('{{ url_for('static', filename='busi.jpg') }}');">
-    <h1>Welcome to Investment Advisor</h1>
-
-    <form action="/recommend" method="post">
-        <label for="age">Age:</label>
-        <input type="text" id="age" name="age" required><br>
-
-        <label for="income">Income:</label>
-        <input type="text" id="income" name="income" required><br>
-
-        <label for="goals">Financial Goals:</label>
-        <input type="text" id="goals" name="goals" required><br>
-
-        <label for="risk_tolerance">Risk Tolerance:</label>
-        <select id="risk_tolerance" name="risk_tolerance">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-        </select><br>
-
-        <button type="submit">Get Recommendations</button>
-    </form>
-
-    <form action="/chat" method="post">
-        <label for="query">Ask a question:</label>
-        <input type="text" id="query" name="query" required><br>
-        <button type="submit">Submit</button>
-    </form>
-
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
+   
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        </a>
         <ul>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/login">User Login</a></li>
         </ul>
-      {% endif %}
-    {% endwith %}
+    </nav>
+    
+
+    <div class="container">
+        <h1>Welcome to Investment Advisor</h1>
+
+        <form action="/recommend" method="post" class="form">
+            <label for="age">Age:</label>
+            <input type="text" id="age" name="age" required><br>
+
+            <label for="income">Income:</label>
+            <input type="text" id="income" name="income" required><br>
+
+            <label for="goals">Financial Goals:</label>
+            <input type="text" id="goals" name="goals" required><br>
+
+            <label for="risk_tolerance">Risk Tolerance:</label>
+            <select id="risk_tolerance" name="risk_tolerance">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select><br>
+
+            <button type="submit">Get Recommendations</button>
+        </form>
+
+        <form action="/chat" method="post" class="form">
+            <label for="query">Ask a question:</label>
+            <input type="text" id="query" name="query" required><br>
+            <button type="submit">Submit</button>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </div>
 </body>
 </html>

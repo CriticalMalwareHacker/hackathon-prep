@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <div class="container" id="loginForm">
+        <h1>User Login</h1>
+        <form id="usernameForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <button type="submit">Next</button>
+        </form>
+    </div>
+
+    <div class="container" id="detailsForm" style="display: none;">
+        <h1>Additional Information</h1>
+        <form id="infoForm">
+            <label for="profession">Profession:</label>
+            <input type="text" id="profession" name="profession" required>
+            <br>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const usernameForm = document.getElementById('usernameForm');
+        const detailsForm = document.getElementById('detailsForm');
+        const loginForm = document.getElementById('loginForm');
+
+        usernameForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            if (username) {
+                // Hide the username form and show the details form
+                loginForm.style.display = 'none';
+                detailsForm.style.display = 'block';
+            }
+        });
+
+        detailsForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const profession = document.getElementById('profession').value;
+            const age = document.getElementById('age').value;
+
+            if (profession && age) {
+                alert('Username, profession, and age submitted successfully!');
+                // You can add further processing like sending this data to a server
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template, flash
-from models import recommend_investment, handle_user_query
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Needed for flash messages
@@ -8,6 +7,26 @@ app.secret_key = 'your_secret_key'  # Needed for flash messages
 @app.route('/')
 def home():
     return render_template('main.html')
+
+# Route for About Us page
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+# Route for Contact Us page
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+# Route for User Login page
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+# Route for News & Resources page
+@app.route('/news')
+def news():
+    return render_template('news.html')
 
 # Route to handle user input for recommendations
 @app.route('/recommend', methods=['POST'])
@@ -45,3 +64,4 @@ def chat():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
