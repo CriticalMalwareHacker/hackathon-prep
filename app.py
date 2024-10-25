@@ -1,66 +1,74 @@
-from flask import Flask, request, render_template, flash
+from flask import Flask, redirect, request, render_template, flash, session, url_for
+import os
+import google.generativeai as genai
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Needed for flash messages
 
-# Route for the homepage
+# Configure the API key from environment variable
+genai.configure(api_key=os.environ["API_KEY"])
+
+# Mock database for users
+user_db = {}
+
 @app.route('/')
 def home():
-    return render_template('home.html')  # Change main.html to home.html
+    return render_template('home.html')
 
-# Route for About Us page
 @app.route('/about')
 def about():
     return render_template('about.html')
 
-# Route for Contact Us page
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
 
-# Route for User Login page
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    if request.method == 'POST':
+        form_type = request.form.get('form_type')
 
-# Route for News & Resources page
-@app.route('/news')
-def news():
-    return render_template('news.html')
+        if form_type == 'signup':
+            email = request.form['email']
+            password = request.form['password']
+            confirm_password = request.form['confirm_password']
+            
+            # Signup logic
+            if password == confirm_password:
+                # Store credentials in session for demonstration purposes
+                session['registered_email'] = email
+                session['registered_password'] = password
+                flash("Account has been successfully created. Please log in.", "success")
+            else:
+                flash("Passwords do not match. Please try again.", "error")
+            return redirect(url_for('login'))
 
-# Route to handle user input for recommendations
-@app.route('/recommend', methods=['POST'])
-def get_recommendations():
-    user_age = request.form.get('age')
-    user_income = request.form.get('income')
-    user_goals = request.form.get('goals')
-    risk_tolerance = request.form.get('risk_tolerance')
+        elif form_type == 'login':
+            email = request.form['email']
+            password = request.form['password']
+            
+            # Login logic
+            if email == session.get('registered_email') and password == session.get('registered_password'):
+                return redirect(url_for('dashboard'))
+            else:
+                flash("Invalid credentials, please try again.", "error")
 
-    # Input validation
-    if not user_age.isdigit() or not user_income.isdigit():
-        flash("Please enter valid numeric values for age and income.")
-        return render_template('home.html')  # Updated to home.html
+    return render_template('login.html', prefilled_email=session.get('registered_email'))
 
-    # Pass data to the recommendation function
-    recommendations = recommend_investment(user_age, user_income, user_goals, risk_tolerance)
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
 
-    # Check if recommendations were returned
-    if not recommendations:
-        flash("No recommendations could be generated. Please try again.")
-        return render_template('home.html')  # Updated to home.html
-
-    # Render a new template to show the recommendations
-    return render_template('recommendations.html', recommendations=recommendations)
-
-# Route to handle chat queries
 @app.route('/chat', methods=['POST'])
 def chat():
     user_query = request.form.get('query')
-    response = handle_user_query(user_query)
+    response = generate_response(user_query)
+    return render_template('home.html', user_query=user_query, bot_response=response)
 
-    # Flashing the response for better user experience
-    flash(f"Chatbot Response: {response}")
-    return render_template('home.html')  # Updated to home.html
+def generate_response(user_query):
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    response = model.generate_content(user_query)
+    return response.text
 
 if __name__ == '__main__':
     app.run(debug=True)

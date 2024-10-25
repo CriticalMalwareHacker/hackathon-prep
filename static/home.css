@@ -25,7 +25,7 @@ body::before {
     opacity: 0.5;
     width: 100%;
     height: 100%;
-    background: url("busi.jpg") no-repeat center center; /* Updated background */
+    background: url("banner.jpg") no-repeat center center; /* Updated background */
     background-size: cover; /* Make the background cover the whole area */
     z-index: -1; /* Set z-index to ensure it's behind other elements */
 }
@@ -97,8 +97,41 @@ body::before {
 
 /* Styling for the h1 inside .welcome-text */
 .welcome-text h1 {
-    font-size: 300px;   /* Set the font size to 300px */
+    font-size: 100px;   /* Set the font size to 100px */
     font-weight: bold;  /* Make the text bold */
     text-transform: uppercase; /* Convert text to uppercase */
     margin: 0;         /* Remove default margin */
+    max-width: 60%; 
+    color: darkcyan; /* Updated color */
+}
+
+.chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 400px; /* Increased width for better visibility */
+    max-height: 400px; /* Limit height for scrolling */
+    overflow-y: auto; /* Allow vertical scrolling */
+    display: flex; /* Ensure chat container is flexbox */
+    flex-direction: column; /* Align items vertically */
+}
+
+.chat-history {
+    flex-grow: 1; /* Allow chat history to grow and take available space */
+    max-height: 300px; /* Height for chat history */
+    overflow-y: auto; /* Allow scrolling if messages exceed the limit */
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#chat-form {
+    display: flex;
+    gap: 10px; /* Space between input and button */
+    align-items: center; /* Align items in the center */
 }

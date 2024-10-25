@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Investment Advisor</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
 
@@ -20,10 +20,32 @@
         </ul>
     </nav>
 
-    <div class="background-overlay"></div> <!-- This is the new background div -->
+    <div class="background-overlay"></div>
 
     <div class="welcome-text">
         <h1>Welcome to Investment Advisor</h1>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <div class="chat-history">
+            {% if user_query %}
+                <div>You: {{ user_query }}</div>
+                <div class="bot-response">
+                    <span class="inline-flex items-center justify-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-ms-1 me-1.5 size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <p class="whitespace-nowrap text-sm">{{ bot_response }}</p>
+                    </span>
+                </div>
+            {% endif %}
+        </div>
+        
+        <form id="chat-form" action="/chat" method="POST">
+            <input type="text" name="query" placeholder="Ask me anything..." required>
+            <button type="submit">Send</button>
+        </form>
     </div>
 
 </body>

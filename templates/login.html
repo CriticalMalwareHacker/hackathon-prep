@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">  <!-- Updated line -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
 </head>
 <body>
     <nav class="navbar">
@@ -19,17 +19,30 @@
         </ul>
     </nav>
     
+    <!-- Flash Message Area -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash-message {{ category }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    
     <div class="form-wrapper">
         <div class="form-container">
+            <!-- Sign-In Form -->
             <div class="form" id="sign-in-form">
                 <h2>Sign In</h2>
-                <form action="#">
+                <form action="/login" method="POST">
+                    <input type="hidden" name="form_type" value="login"> <!-- Specify form type for login -->
                     <div class="form-control">
-                        <input type="text" required>
+                        <input type="text" name="email" required value="{{ prefilled_email }}"> <!-- Pre-fill email if available -->
                         <label>Email or phone number</label>
                     </div>
                     <div class="form-control">
-                        <input type="password" required>
+                        <input type="password" name="password" required>
                         <label>Password</label>
                     </div>
                     <button type="submit">Sign In</button>
@@ -44,28 +57,37 @@
                 <p>New to WealthWise? <a href="#" onclick="toggleForms()">Sign up now</a></p> 
             </div>
 
+            <!-- Sign-Up Form -->
             <div class="form hidden" id="sign-up-form">
                 <h2>Sign Up</h2>
-                <form action="#">
+                <form action="/login" method="POST"> <!-- Both forms now go to /login -->
+                    <input type="hidden" name="form_type" value="signup"> <!-- Specify form type for signup -->
                     <div class="form-control">
-                        <input type="text" required>
+                        <input type="text" name="email" required>
                         <label>Email or phone number</label>
                     </div>
                     <div class="form-control">
-                        <input type="password" required>
+                        <input type="password" name="password" required>
                         <label>Password</label>
                     </div>
                     <div class="form-control">
-                        <input type="password" required>
+                        <input type="password" name="confirm_password" required>
                         <label>Confirm Password</label>
                     </div>
-                    <button type="submit" onclick="submitSignUp()">Finish</button>
+                    <button type="submit">Finish</button>
                     <p>Already have an account? <a href="#" onclick="toggleForms()">Sign In</a></p>
                 </form>
             </div>
         </div>
     </div>
 
+    <!-- Notification Area -->
+    {% if signup_success %}
+    <div class="notification">
+        <p>Account has been successfully created. Please move ahead with login.</p>
+    </div>
+    {% endif %}
+    
     <script>
         function toggleForms() {
             const signInForm = document.getElementById('sign-in-form');
@@ -73,11 +95,6 @@
 
             signInForm.classList.toggle('hidden');
             signUpForm.classList.toggle('hidden');
-        }
-
-        function submitSignUp() {
-            alert('Account created! You can now sign in.');
-            toggleForms(); // Switch to sign-in form
         }
     </script>
 </body>

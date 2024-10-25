@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='aboutus.css') }}">  <!-- Make sure the filename is correct -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='aboutus.css') }}">
+    <title>Multi-Page Scroll</title>
 </head>
 <body>
     <nav class="navbar">
@@ -18,37 +19,41 @@
             <li><a href="/login">User Login</a></li>
         </ul>
     </nav>
-    
-    <div class="about-section">
-        <div class="about-container">
-            <div class="about-item">
-                <div class="about-content">
-                    <h2>Jash</h2>
-                    <p>Jash is an expert in AI-powered financial strategies, bringing years of experience and a deep understanding of market trends to the table.</p>
-                </div>
-                <div class="about-image">
-                    <img src="{{ url_for('static', filename='jash.jpg') }}" alt="Jash">
-                </div>
-            </div>
-            <div class="about-item">
-                <div class="about-content">
-                    <h2>Krish</h2>
-                    <p>Krish specializes in automated financial planning systems, ensuring that clients receive tailored financial advice at the click of a button.</p>
-                </div>
-                <div class="about-image">
-                    <img src="{{ url_for('static', filename='krish.jpg') }}" alt="Krish">
-                </div>
-            </div>
-            <div class="about-item">
-                <div class="about-content">
-                    <h2>Tanay</h2>
-                    <p>Tanay combines innovative AI technology with expert financial insights, crafting effective solutions for all financial challenges.</p>
-                </div>
-                <div class="about-image">
-                    <img src="{{ url_for('static', filename='tanay.jpg') }}" alt="Tanay">
-                </div>
-            </div>
+
+    <div id="page1" class="about-container">
+        <div class="about-content">
+            <div class="about-label">Co-Founder & Chief Technology Officer (CTO)</div>
+            <h1>Jash Pancholi</h1>
+            <p>Jash is a tech visionary with over 8 years of experience in AI and data science. Holding a degree in B.Tech from NMIMS, he is dedicated to leveraging technology to transform financial advisory services. Outside of work, he enjoys exploring the latest tech trends and outdoor adventures.</p>
+        </div>
+        <div class="about-image">
+            <img src="{{ url_for('static', filename='jash.jpg') }}" alt="image1">
         </div>
     </div>
+
+    <div id="page2" class="about-container">
+        <div class="about-content">
+            <div class="about-label">Co-Founder & Chief Marketing Officer (CMO)</div>
+            <h1>Tanay Kumar</h1>
+            <p>Tanay is the creative mind behind WealthWise’s branding and user engagement. With 11 years in marketing, he excels at simplifying complex financial concepts. Tanay holds a degree in MBA from NMIMS. When not crafting marketing strategies, he enjoys gaming.</p>
+        </div>
+        <div class="about-image">
+            <img src="{{ url_for('static', filename='tanay.jpg') }}" alt="image2">
+        </div>
+    </div>
+
+    <div id="page3" class="about-container">
+        <div class="about-content">
+            <div class="about-label">Co-Founder & Chief Financial Officer (CFO)</div>
+            <h1>Krish Mody</h1>
+            <p>Krish brings a wealth of finance expertise, with 9 years in investment strategy. A graduate of NMIMS with a degree in buisness, he aims to make financial advice accessible through innovative AI solutions. In his free time, he mentors aspiring entrepreneurs.
+
+            </p>
+        </div>
+        <div class="about-image">
+            <img src="{{ url_for('static', filename='krish.jpeg') }}" alt="image3">
+        </div>
+    </div>
+
 </body>
 </html>

@@ -1,21 +1,24 @@
 /* General Reset */
+/* General Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Comfortaa', sans-serif; /* From the imported fonts */
 }
 
-/* Body and About Body */
-body {
-    font-family: 'Comfortaa', sans-serif;
-    background-color: #f0f0f0; /* Light background color for the whole page */
+body, html {
+    height: 100%;
+    background-color: white; /* Set entire background to white */
+    color: black; /* Set body text to black */
 }
 
+/* Navbar Styles */
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    height: 60px;
+    height: 65px;
     background-color: rgba(0, 0, 0, 0.8); /* Translucent background */
     display: flex;
     justify-content: space-between;
@@ -30,25 +33,20 @@ body {
 }
 
 .navbar .logo {
-    display: flex; /* Ensure flex display for alignment */
-    align-items: center; /* Center vertically */
+    display: flex;
+    align-items: center;
 }
 
 .navbar .logo img {
-    height: 70px;  /* Adjust height as needed */
-    width: auto;   /* Maintain aspect ratio */
-    max-width: 100%;  /* Make sure it doesn’t exceed the parent width */
-    object-fit: contain; /* Keep the aspect ratio */
+    height: 70px;
+    width: auto;
+    object-fit: contain; /* Keep aspect ratio */
 }
 
 .navbar ul {
     list-style: none;
     display: flex;
     gap: 20px;
-}
-
-.navbar ul li {
-    display: inline;
 }
 
 .navbar ul li a {
@@ -65,54 +63,67 @@ body {
 }
 
 /* About Section */
-.about-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 70px; /* Space for fixed navbar */
-    overflow-y: auto; /* Allow scrolling */
-    height: calc(100vh - 60px); /* Full height minus navbar height */
-}
-
 .about-container {
-    width: 100%;
-}
-
-.about-item {
     display: flex;
-    height: 300px; /* Fixed height for each item */
-    margin: 20px 0; /* Space between items */
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    align-items: center;
+    margin-top: 70px; /* Compensate for fixed navbar */
 }
 
 .about-content {
-    background-color: black; /* Black background for text section */
-    color: white; /* White text */
-    padding: 20px;
-    width: 50%; /* Left half width */
+    width: 50%;
+    padding: 50px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center content vertically */
+    justify-content: center;
+    color: black; /* Ensure the text remains black */
+}
+
+.about-label {
+    font-size: 1.2em;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #a0a0a0; /* Light grey for the label */
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    color: black; /* Ensure the heading remains black */
+}
+
+.about-content p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: black; /* Body text should be black */
 }
 
 .about-image {
-    width: 50%; /* Right half width */
+    width: 50%;
 }
 
 .about-image img {
-    width: 100%; /* Responsive image */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Cover the area */
+    width: 100%;
+    height: 100vh;
+    object-fit: cover; /* Ensures the image fits without distortion */
 }
 
-/* Responsive Styles */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .about-item {
-        flex-direction: column; /* Stack items vertically on smaller screens */
-        height: auto; /* Auto height for mobile */
+    .about-container {
+        flex-direction: column;
+        height: auto;
     }
-    
+
     .about-content,
     .about-image {
-        width: 100%; /* Full width on smaller screens */
+        width: 100%;
+    }
+
+    .about-image img {
+        height: auto;
     }
 }

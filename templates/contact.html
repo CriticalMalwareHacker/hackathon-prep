@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='contact.css') }}">
+</head>
+<nav class="navbar">
+    <a href="/" class="logo">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+    </a>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        <li><a href="/login">User Login</a></li>
+    </ul>
+</nav>
+<body>
+    <div class="page-container">
+        <div class="left-content">
+            <h1>Talk with our sales team</h1> <!-- Heading only, no extra text -->
+        </div>
+
+        <div class="form-container">
+            <form action="submit_form.php" method="POST" class="contact-form">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" placeholder="e.g., John" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Smith" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Company Email *</label>
+                    <input type="email" id="email" name="email" placeholder="name@company.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+1 555 655 5656" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="companySize">Company Size *</label>
+                    <select id="companySize" name="companySize" required>
+                        <option value="">Select...</option>
+                        <option value="small">1-10 Employees</option>
+                        <option value="medium">11-50 Employees</option>
+                        <option value="large">51+ Employees</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Country *</label>
+                    <select id="country" name="country" required>
+                        <option value="">Select...</option>
+                        <option value="US">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="CA">Canada</option>
+                        <!-- Add more countries as needed -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="discussion">What would you like to discuss? *</label>
+                    <textarea id="discussion" name="discussion" placeholder="Tell us about your team and provide some details..." required></textarea>
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
