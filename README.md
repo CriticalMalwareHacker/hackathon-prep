@@ -1,3 +1,3 @@
 To run the server,
-create a virutalenv,
+create a virtualenv,
 and run it through flask
