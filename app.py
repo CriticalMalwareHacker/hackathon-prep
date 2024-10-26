@@ -32,13 +32,14 @@ def login():
                 session['registered_password'] = password
                 flash("Account has been successfully created. Please log in.", "success")
             else:
-                flash("Passwords do not match. Please try again.", "error")
+                flash("Passwords do not match. Please try again.")
             return redirect(url_for('login'))
 
         elif form_type == 'login':
             email = request.form['email']
             password = request.form['password']
             if email == session.get('registered_email') and password == session.get('registered_password'):
+                session['user_email'] = email  # Store user email in session
                 return redirect(url_for('dashboard'))
             else:
                 flash("Invalid credentials, please try again.")
@@ -53,11 +54,11 @@ def dashboard():
     market_data = get_market_data(symbol)
     recommendation = None  # Placeholder for recommendations
     reason = None          # Placeholder for the reason of recommendation
-    # Here you might want to add logic for AI recommendation based on symbol
     return render_template('dashboard.html', market_data=market_data, symbol=symbol, recommendation=recommendation, reason=reason)
 
 @app.route('/logout')
 def logout():
+    session.pop('user_email', None)  # Remove user email from session
     session.pop('registered_email', None)
     session.pop('registered_password', None)
     return redirect(url_for('home'))

@@ -14,9 +14,15 @@
         <li><a href="/">Home</a></li>
         <li><a href="/about">About Us</a></li>
         <li><a href="/contact">Contact Us</a></li>
-        <li><a href="/login">User Login</a></li>
+        {% if session.user_email %}
+            <li><a href="/logout">Logout</a></li>
+            <li>{{ session.user_email }}</li> <!-- Show user's email -->
+        {% else %}
+            <li><a href="/login">User Login</a></li>
+        {% endif %}
     </ul>
 </nav>
+
 <body>
     <div class="page-container">
         <div class="left-content">
