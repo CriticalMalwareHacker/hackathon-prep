@@ -1,12 +1,7 @@
-from flask import Flask, redirect, request, render_template, flash, session, url_for
-import os
-import google.generativeai as genai
+from flask import Flask, redirect, request, render_template, flash, session, url_for, jsonify
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Needed for flash messages
-
-# Configure the API key from environment variable
-genai.configure(api_key=os.environ["API_KEY"])
 
 # Mock database for users
 user_db = {}
@@ -19,15 +14,17 @@ def home():
 def about():
     return render_template('about.html')
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
+    if request.method == 'POST':
+        # Process contact form data if needed
+        return redirect(url_for('contact'))  # Redirect to prevent form resubmission
     return render_template('contact.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         form_type = request.form.get('form_type')
-
         if form_type == 'signup':
             email = request.form['email']
             password = request.form['password']
@@ -47,6 +44,11 @@ def login():
             email = request.form['email']
             password = request.form['password']
             
+            # Check if the user is registered
+            if email != session.get('registered_email'):
+                flash("Email not found. Please sign up.", "info")
+                return redirect(url_for('login'))
+            
             # Login logic
             if email == session.get('registered_email') and password == session.get('registered_password'):
                 return redirect(url_for('dashboard'))
@@ -59,16 +61,24 @@ def login():
 def dashboard():
     return render_template('dashboard.html')
 
+@app.route('/logout')
+def logout():
+    # Clear the session to log out the user
+    session.pop('registered_email', None)
+    session.pop('registered_password', None)
+    return redirect(url_for('home'))
+
 @app.route('/chat', methods=['POST'])
 def chat():
-    user_query = request.form.get('query')
+    data = request.get_json()  # Get JSON data
+    user_query = data.get('query')  # Access the user's query
     response = generate_response(user_query)
-    return render_template('home.html', user_query=user_query, bot_response=response)
+    return jsonify({'response': response})  # Return JSON response for AJAX
 
 def generate_response(user_query):
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    response = model.generate_content(user_query)
-    return response.text
+    # You can keep this function or modify it as needed.
+    # Placeholder for chat response generation.
+    return "This is a placeholder response."
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -5,6 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <style>
+        /* Floating notification styles */
+        .flash-messages {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            z-index: 1000;
+            text-align: center;
+        }
+        .flash-message {
+            background-color: #444;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            opacity: 0;
+            animation: fadeInOut 1.5s forwards;
+        }
+        .flash-message.success {
+            background-color: #4CAF50;
+        }
+        .flash-message.error {
+            background-color: #f44336;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .notification {
+            background-color: rgba(255, 165, 0, 0.9); /* Orange background */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px; /* Space below the notification */
+            text-align: center;
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -19,17 +63,26 @@
         </ul>
     </nav>
     
-    <!-- Flash Message Area -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <div class="flash-messages">
-        {% for category, message in messages %}
-        <div class="flash-message {{ category }}">{{ message }}</div>
-        {% endfor %}
-    </div>
-    {% endif %}
-    {% endwith %}
-    
+   <!-- Flash Message Area -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="flash-messages">
+    {% for category, message in messages %}
+    <div class="flash-message {{ category }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<!-- Notification for account creation -->
+{% if 'Email not found' in get_flashed_messages() %}
+<div class="notification">
+    <p>Email not found. Please <a href="#" onclick="toggleForms()" style="color: #ffff00;">sign up now</a>!</p>
+</div>
+{% else %}
+<div class="notification" style="display: none;"></div> <!-- Empty div if no message -->
+{% endif %}
+
     <div class="form-wrapper">
         <div class="form-container">
             <!-- Sign-In Form -->

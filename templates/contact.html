@@ -5,6 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='contact.css') }}">
+    <style>
+        /* Inline styles for the chatbot */
+        #chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            max-height: 400px;
+            border: 1px solid #ccc;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            transform: translateY(100%); /* Start hidden */
+            transition: transform 0.3s ease-in-out; /* Smooth transition */
+            overflow: hidden; /* Hide overflow */
+        }
+
+        #chat-header {
+            background-color: #0073e6;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        #chat-content {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            height: 300px; /* Fixed height */
+            display: none; /* Initially hidden */
+        }
+
+        #message {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex: 0 0 50px; /* Fixed height */
+        }
+
+        #send {
+            padding: 10px;
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #send:hover {
+            background-color: #005bb5;
+        }
+
+        #chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #0073e6;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1001; /* Ensure button is on top */
+        }
+
+        #chat-toggle:hover {
+            background-color: #005bb5;
+        }
+    </style>
 </head>
 <nav class="navbar">
     <a href="/" class="logo">
@@ -20,7 +91,7 @@
 <body>
     <div class="page-container">
         <div class="left-content">
-            <h1>Talk with our sales team</h1> <!-- Heading only, no extra text -->
+            <h1>Talk with our sales team</h1>
         </div>
 
         <div class="form-container">
@@ -62,7 +133,6 @@
                         <option value="US">United States</option>
                         <option value="UK">United Kingdom</option>
                         <option value="CA">Canada</option>
-                        <!-- Add more countries as needed -->
                     </select>
                 </div>
 
@@ -75,5 +145,80 @@
             </form>
         </div>
     </div>
+
+    <!-- Chatbot Implementation -->
+    <div id="chatbot">
+        <div id="chat-header">Chat with Us</div>
+        <div id="chat-content"></div>
+        <input type="text" id="message" placeholder="Type a message..." />
+        <button id="send">Send</button>
+    </div>
+
+    <button id="chat-toggle">Chat</button>
+
+    <script>
+        // Toggle chatbot visibility with animation
+        const chatbot = document.getElementById('chatbot');
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatContent = document.getElementById('chat-content');
+
+        chatToggle.addEventListener('click', () => {
+            const isVisible = chatbot.style.transform === 'translateY(0%)';
+            if (isVisible) {
+                chatbot.style.transform = 'translateY(100%)'; // Hide chatbot
+                chatContent.style.display = 'none'; // Hide chat content
+            } else {
+                chatbot.style.transform = 'translateY(0%)'; // Show chatbot
+                chatContent.style.display = 'block'; // Show chat content
+            }
+        });
+
+        // Send message handling
+        const sendButton = document.getElementById('send');
+        const messageInput = document.getElementById('message');
+
+        sendButton.addEventListener('click', async () => {
+            const message = messageInput.value;
+            if (message.trim() !== '') {
+                const userMessage = document.createElement('div');
+                userMessage.textContent = `You: ${message}`;
+                chatContent.appendChild(userMessage);
+                messageInput.value = ''; // Clear input field
+
+                // Send user message to the API
+                try {
+                    console.log("Sending message:", message); // Log the message being sent
+                    const response = await fetch('YOUR_API_ENDPOINT_HERE', { // Replace with actual API endpoint
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer AIzaSyBVwUzrHhsr8grT7azsY4dl56TNsZFlwoM` // Your API key here
+                        },
+                        body: JSON.stringify({ message: message })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+
+                    const data = await response.json(); // Assuming response is JSON
+                    console.log("Received data:", data); // Log the response data
+                    const botResponse = document.createElement('div');
+                    botResponse.textContent = `Bot: ${data.reply}`; // Adjust based on actual response structure
+                    chatContent.appendChild(botResponse);
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    const errorMessage = document.createElement('div');
+                    errorMessage.textContent = 'Bot: Sorry, there was an error. Please try again.';
+                    chatContent.appendChild(errorMessage);
+                }
+
+                // Auto scroll to the bottom of chat content
+                chatContent.scrollTop = chatContent.scrollHeight;
+            }
+        });
+    </script>
 </body>
 </html>
+
