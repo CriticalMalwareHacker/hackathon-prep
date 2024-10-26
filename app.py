@@ -1,8 +1,5 @@
-
 from flask import Flask, redirect, request, render_template, flash, session, url_for, jsonify
-import os
 import yfinance as yf
-import requests  # Import the requests library
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Needed for flash messages
@@ -54,36 +51,10 @@ def dashboard():
         symbol = request.form['symbol'].upper()
     
     market_data = get_market_data(symbol)
-    return render_template('dashboard.html', market_data=market_data, symbol=symbol)
-
-@app.route('/chatbot', methods=['GET'])  # New route for the chatbot page
-def chatbot():
-    return render_template('genai.html')  # Render the chatbot interface
-
-@app.route('/get_chatbot_response', methods=['POST'])  # New route for chatbot responses
-def get_chatbot_response_route():
-    user_input = request.json.get('input')
-    print(f"User input received: {user_input}")  # Debugging print
-    response_text = get_chatbot_response(user_input)
-    print(f"Chatbot response: {response_text}")  # Debugging print
-    return jsonify({'response': response_text})
-
-def get_chatbot_response(user_input):
-    url = 'https://your.actual.api.endpoint'  # Replace with your actual API URL
-    headers = {'Authorization': f'Bearer AlzaSyDhXXtAcScaClhF_nwh7Kid1x_yyrrd6M', 'Content-Type': 'application/json'}
-    data = {'input': user_input}
-
-    try:
-        response = requests.post(url, headers=headers, json=data)
-        if response.status_code == 200:
-            print("Successful response from API")  # Debugging print
-            return response.json().get('response', "No response key found")  # Adjust if needed
-        else:
-            print(f"API Error: Status Code {response.status_code}")
-            return "I'm sorry, but I can't answer that right now."
-    except Exception as e:
-        print(f"Exception occurred: {e}")
-        return "I'm sorry, there was an error processing your request."
+    recommendation = None  # Placeholder for recommendations
+    reason = None          # Placeholder for the reason of recommendation
+    # Here you might want to add logic for AI recommendation based on symbol
+    return render_template('dashboard.html', market_data=market_data, symbol=symbol, recommendation=recommendation, reason=reason)
 
 @app.route('/logout')
 def logout():
@@ -94,7 +65,8 @@ def logout():
 def get_market_data(symbol):
     stock = yf.Ticker(symbol)
     data = stock.history(period="5d")  # Get historical data for the last 5 days
-    return data
+    return data.to_dict(orient='index')  # Convert to dictionary for easier rendering
+
 
 if __name__ == '__main__':
     app.run(debug=True)

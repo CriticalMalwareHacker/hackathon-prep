@@ -87,16 +87,20 @@ body::before {
 }
 
 .left-content {
-    width: 40%; /* Adjusted width */
+    width: 40%; /* Keep the width */
     position: relative; /* For the background image */
-    color: white;
+    color: white; /* Text color */
     padding: 20px;
     height: calc(100vh - 100px); /* Full height minus navbar */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center; /* Center the text */
 }
 
 .bold-text {
     font-weight: bold;
-    font-size: 2em; /* Adjust size as needed */
+    font-size: 2.5em; /* Increased size */
     margin-bottom: 20px; /* Space below the text */
     color: white; /* Text color */
 }
@@ -125,6 +129,25 @@ body::before {
     flex-direction: column; 
     justify-content: flex-end; 
     padding-bottom: 120px; 
+}
+
+.left-content {
+    width: 40%; /* Keep the width */
+    position: relative; /* For the background image */
+    color: white; /* Text color */
+    padding: 20px;
+    height: calc(100vh - 100px); /* Full height minus navbar */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center; /* Center the text */
+}
+
+.left-content h1 { /* Target the h1 within left-content specifically */
+    font-size: 2.5em; /* Increased size */
+    font-weight: bold; /* Ensure it's bold */
+    color: white; /* Ensure it's white */
+    margin: 0; /* Remove default margin */
 }
 
 .form-header {
