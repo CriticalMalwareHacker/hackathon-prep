@@ -1,0 +1,121 @@
+body {
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.chatbot-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.chatbot-header {
+    text-align: center;
+}
+
+.chatbot-window {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.messages {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.message {
+    margin: 10px 0;
+}
+
+.bot-message {
+    background-color: #e1f5fe;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.user-message {
+    background-color: #ffe0b2;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: right;
+}
+
+.input-area {
+    display: flex;
+    margin-top: 10px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 65px;
+    background-color: rgba(0, 0, 0, 0.8); /* Translucent background */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000; /* Keep navbar above everything else */
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar:hover {
+    background-color: rgba(0, 0, 0, 0.9); /* Darker background on hover */
+}
+
+.navbar .logo {
+    display: flex; /* Ensure flex display for alignment */
+    align-items: center; /* Center vertically */
+}
+
+.navbar .logo img {
+    height: 70px;  /* Adjust height as needed */
+    width: auto;   /* Maintain aspect ratio */
+    max-width: 100%;  /* Make sure it doesn’t exceed the parent width */
+    object-fit: contain; /* Keep the aspect ratio */
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar ul li {
+    display: inline;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.navbar ul li a:hover {
+    background-color: #333; /* Darker background on hover */
+}

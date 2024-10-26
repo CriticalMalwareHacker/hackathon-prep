@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='chatbot.css') }}">
+    <title>AI Chatbot Interface</title>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        </a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/login">User Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="chatbot-container">
+        <div class="chatbot-header">
+            <h1>Chat with Our AI</h1>
+            <p>Your virtual assistant is here to help!</p>
+        </div>
+        <div class="chatbot-window">
+            <div class="messages">
+                <div class="message bot-message">
+                    <p>Hello! I'm your AI assistant. How can I help you today?</p>
+                </div>
+            </div>
+            <div class="input-area">
+                <input type="text" id="user-input" placeholder="Type your message..." aria-label="User message input">
+                <button id="send-btn">Send</button>
+                <span id="loading" style="display: none;">Loading...</span>  <!-- Loading indicator -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sendButton = document.getElementById('send-btn');
+        const userInput = document.getElementById('user-input');
+        const messagesContainer = document.querySelector('.messages');
+        const loadingIndicator = document.getElementById('loading');  // Loading indicator
+
+        // Function to add messages to the chat window
+        function addMessage(text, sender = 'bot') {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', `${sender}-message`);
+            messageElement.innerHTML = `<p>${text}</p>`;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;  // Auto-scroll to the bottom
+        }
+
+        sendButton.addEventListener('click', async () => {
+            const userMessage = userInput.value.trim();
+            if (userMessage !== '') {
+                addMessage(userMessage, 'user');  // Display user message
+                userInput.value = '';  // Clear input
+                loadingIndicator.style.display = 'inline';  // Show loading indicator
+
+                try {
+                    const response = await fetch('/get_chatbot_response', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ input: userMessage })
+                    });
+
+                    loadingIndicator.style.display = 'none';  // Hide loading indicator
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        addMessage(data.response, 'bot');  // Display bot response
+                    } else {
+                        addMessage("Sorry, I couldn't get a response from the server.", 'bot');
+                    }
+                } catch (error) {
+                    loadingIndicator.style.display = 'none';  // Hide loading indicator
+                    addMessage(`Error: ${error.message}`, 'bot');  // Display error message
+                }
+            }
+        });
+
+        // Optional: Send message on Enter key press
+        userInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+    </script>
+</body>
+</html>

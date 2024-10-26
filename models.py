@@ -1,4 +1,4 @@
-import pandas as pd
+"""import pandas as pd
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 
@@ -29,3 +29,22 @@ def handle_user_query(query):
         return "It looks like you're a bit cautious. Perhaps consider safer investments like bonds."
     else:
         return "It's always a good idea to review your financial goals before making a decision."
+"""
+# models.py
+
+# This file can be used for database models if you're using a database
+# For simplicity, I have left it empty as you might not have specific models yet.
+
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(200), nullable=False)
+
+    def __repr__(self):
+        return f'<User {self.email}>'
+
+# Add other models as needed...

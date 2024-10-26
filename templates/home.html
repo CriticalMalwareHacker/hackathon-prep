@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
     <title>Investment Advisor</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
-
     <nav class="navbar">
         <a href="/" class="logo">
             <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
@@ -17,15 +17,26 @@
             <li><a href="/about">About Us</a></li>
             <li><a href="/contact">Contact Us</a></li>
             <li><a href="/login">User Login</a></li>
+            <li><a href="/chatbot">Chatbot</a></li>  <!-- New navbar option for Chatbot -->
         </ul>
     </nav>
 
     <div class="background-overlay"></div>
 
-    <div class="welcome-text">
-        <h1>Welcome to Investment Advisor</h1>
+    <div class="welcome-container">
+        <div class="welcome-text">
+            <h1>Welcome to WealthWise</h1>
+        </div>
     </div>
 
+    <div class="additional-section">
+        <h2>Explore Our Services</h2>
+        <p>We provide tailored financial advice to help you navigate your investments effectively.</p>
+        <p>Our team of experts is here to guide you through every step of your investment journey.</p>
+    </div>
 
+    <div class="footer">
+        <p>© 2024 Investment Advisor. All rights reserved.</p>
+    </div>
 </body>
 </html>

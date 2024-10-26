@@ -10,7 +10,7 @@
 
 body {
     background: #000;
-    overflow: hidden; /* Prevent scrollbars on small screens */
+    overflow: hidden; 
 }
 
 body::before {
@@ -21,9 +21,9 @@ body::before {
     opacity: 0.5;
     width: 100%;
     height: 100%;
-    background: url("wall2.png") no-repeat center center; /* Updated background */
-    background-size: cover; /* Make the background cover the whole area */
-    z-index: -1; /* Set z-index to ensure it's behind other elements */
+    background: url("wall2.png"); /* Adjust this if needed */
+    background-size: cover; 
+    z-index: -1; 
 }
 
 .navbar {
@@ -31,7 +31,7 @@ body::before {
     top: 0;
     width: 100%;
     height: 65px;
-    background-color: rgba(0, 0, 0, 0.8); /* Translucent background */
+    background-color: rgba(0, 0, 0, 0.8); 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -41,19 +41,19 @@ body::before {
 }
 
 .navbar:hover {
-    background-color: rgba(0, 0, 0, 0.9); /* Darker background on hover */
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 .navbar .logo {
-    display: flex; /* Ensure flex display for alignment */
-    align-items: center; /* Center vertically */
+    display: flex; 
+    align-items: center; 
 }
 
 .navbar .logo img {
-    height: 70px;  /* Adjust height as needed */
-    width: auto;   /* Maintain aspect ratio */
-    max-width: 100%;  /* Make sure it doesn’t exceed the parent width */
-    object-fit: contain; /* Keep the aspect ratio */
+    height: 70px;  
+    width: auto;   
+    max-width: 100%;  
+    object-fit: contain; 
 }
 
 .navbar ul {
@@ -76,54 +76,57 @@ body::before {
 }
 
 .navbar ul li a:hover {
-    background-color: #333; /* Darker background on hover */
+    background-color: #333; 
 }
 
-/* Layout for the page */
 .page-container {
+    padding: 100px 20px; /* Added top padding to push content below the navbar */
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 100px; /* Ensure there's space below the navbar */
-    gap: 50px; /* Space between the form and the text */
-    width: 80%;
-    margin: 0 auto;
+    justify-content: space-between; /* Space between left and right content */
+    align-items: flex-start; /* Align items to the top */
 }
 
 .left-content {
-    width: 40%;
+    width: 40%; /* Adjusted width */
+    position: relative; /* For the background image */
     color: white;
     padding: 20px;
-    display: flex;               /* Enable flexbox */
-    flex-direction: column;      /* Stack items vertically */
-    justify-content: center;     /* Center items vertically */
-    align-items: flex-start;     /* Align items to the left */
-    height: calc(100vh - 100px);
+    height: calc(100vh - 100px); /* Full height minus navbar */
 }
 
-.left-content h1 {
-    font-size: 4em;  /* Increase the font size as needed */
-    font-weight: 700; /* Keep the font weight bold */
-    font-family: 'Roboto', sans-serif; /* Change font to Roboto */
-    color: white; /* Keep the color white */  
-    margin-bottom: 20px; /* Adjust margin if necessary */
+.bold-text {
+    font-weight: bold;
+    font-size: 2em; /* Adjust size as needed */
+    margin-bottom: 20px; /* Space below the text */
+    color: white; /* Text color */
 }
 
-/* Form container styling */
+.left-content::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url("your-background-image-url.jpg"); /* Replace with your image URL */
+    background-size: cover;
+    opacity: 0.3; /* Adjust opacity for better visibility */
+    z-index: -1; /* Send it behind the text */
+}
+
 .form-container {
     width: 50%;
     background-color: white;
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 13px; /* Move the form 13px to the right */
-    height: calc(100vh - 100px); /* Set the form container's height to fill the remaining space, 100px accounts for the navbar */
+    margin-left: 13px; 
+    height: calc(100vh - 100px); 
     display: flex;
-    flex-direction: column; /* Ensure form elements remain in a column layout */
-    justify-content: flex-end; /* Align form content to the bottom */
-    padding-bottom: 120px; /* Add padding to move content further down */
+    flex-direction: column; 
+    justify-content: flex-end; 
+    padding-bottom: 120px; 
 }
 
-/* Form styling */
 .form-header {
     text-align: left;
     margin-bottom: 20px;
@@ -196,7 +199,6 @@ button:hover {
     background-color: #005bb5;
 }
 
-/* Responsive adjustments for the form */
 @media (max-width: 740px) {
     .page-container {
         flex-direction: column;
@@ -209,8 +211,78 @@ button:hover {
     }
 
     .form-container {
-        margin-left: 0; /* Remove the 13px margin on smaller screens */
-        height: auto; /* Allow height to adjust naturally on smaller screens */
-        padding-bottom: 20px; /* Adjust padding for smaller screens */
+        margin-left: 0; 
+        height: auto; 
+        padding-bottom: 20px; 
     }
+}
+
+/* Chatbot Styles */
+#chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    max-height: 400px;
+    border: 1px solid #ccc;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    transform: translateY(100%); /* Start hidden */
+    transition: transform 0.3s ease-in-out; /* Smooth transition */
+    overflow: hidden; /* Hide overflow */
+}
+
+#chat-header {
+    background-color: #0073e6;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#chat-content {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    height: 300px; /* Fixed height */
+    display: none; /* Initially hidden */
+}
+
+#message {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex: 0 0 50px; /* Fixed height */
+}
+
+#send {
+    padding: 10px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#send:hover {
+    background-color: #005bb5;
+}
+
+#chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #0073e6;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1001; /* Ensure button is on top */
+}
+
+#chat-toggle:hover {
+    background-color: #005bb5;
 }

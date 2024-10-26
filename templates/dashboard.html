@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
         <a href="/dashboard" class="logo">
             <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
@@ -20,20 +19,188 @@
         </ul>
     </nav>
 
-    <!-- Dashboard Content -->
     <div class="dashboard-content">
-        <h1>Welcome to Your Dashboard, {{ session['registered_email'] }}</h1>
-        <p>Here’s where you can manage your profile and interact with features available to you as a logged-in user.</p>
-    </div>
+        <div class="cards-section">
+            <!-- Cryptocurrency Cards -->
+            <label class="crypto-card btc">
+                <input type="checkbox" class="toggle-card btc">
+                <div class="card-content">
+                    <div class="summary">
+                        <h3>BTC</h3>
+                        <p>Bitcoin</p>
+                        <p class="price">$66,695</p>
+                        <p class="percentage">-1.81%</p>
+                    </div>
+                    <div class="overlay">
+                        <div class="overlay-content">
+                            <h3>BTC - Bitcoin</h3>
+                            <p>Price: $66,695</p>
+                            <p>24h Change: -1.81%</p>
+                            <p>Market Cap: $1,318,552,895,928</p>
+                        </div>
+                    </div>
+                </div>
+            </label>
 
-    <script>
-        function confirmLogout() {
-            if (confirm("Are you sure you want to log out?")) {
-                window.location.href = "/";
-                return true;
-            }
-            return false;
-        }
-    </script>
+            <label class="crypto-card eth">
+                <input type="checkbox" class="toggle-card eth">
+                <div class="card-content">
+                    <div class="summary">
+                        <h3>ETH</h3>
+                        <p>Ethereum</p>
+                        <p class="price">$2,442</p>
+                        <p class="percentage">-2.90%</p>
+                    </div>
+                    <div class="overlay">
+                        <div class="overlay-content">
+                            <h3>ETH - Ethereum</h3>
+                            <p>Price: $2,442</p>
+                            <p>24h Change: -2.90%</p>
+                            <p>Market Cap: $290,532,592,234</p>
+                        </div>
+                    </div>
+                </div>
+            </label>
+
+            <label class="crypto-card bnb">
+                <input type="checkbox" class="toggle-card bnb">
+                <div class="card-content">
+                    <div class="summary">
+                        <h3>BNB</h3>
+                        <p>Binance Coin</p>
+                        <p class="price">$313</p>
+                        <p class="percentage">-1.25%</p>
+                    </div>
+                    <div class="overlay">
+                        <div class="overlay-content">
+                            <h3>BNB - Binance Coin</h3>
+                            <p>Price: $313</p>
+                            <p>24h Change: -1.25%</p>
+                            <p>Market Cap: $49,878,999,234</p>
+                        </div>
+                    </div>
+                </div>
+            </label>
+
+            <label class="crypto-card xrp">
+                <input type="checkbox" class="toggle-card xrp">
+                <div class="card-content">
+                    <div class="summary">
+                        <h3>XRP</h3>
+                        <p>Ripple</p>
+                        <p class="price">$0.50</p>
+                        <p class="percentage">-0.70%</p>
+                    </div>
+                    <div class="overlay">
+                        <div class="overlay-content">
+                            <h3>XRP - Ripple</h3>
+                            <p>Price: $0.50</p>
+                            <p>24h Change: -0.70%</p>
+                            <p>Market Cap: $25,000,000,000</p>
+                        </div>
+                    </div>
+                </div>
+            </label>
+
+            <label class="crypto-card sol">
+                <input type="checkbox" class="toggle-card sol">
+                <div class="card-content">
+                    <div class="summary">
+                        <h3>SOL</h3>
+                        <p>Solana</p>
+                        <p class="price">$32</p>
+                        <p class="percentage">+5.00%</p>
+                    </div>
+                    <div class="overlay">
+                        <div class="overlay-content">
+                            <h3>SOL - Solana</h3>
+                            <p>Price: $32</p>
+                            <p>24h Change: +5.00%</p>
+                            <p>Market Cap: $10,000,000,000</p>
+                        </div>
+                    </div>
+                </div>
+            </label>
+
+            <label class="crypto-card doge">
+                <input type="checkbox" class="toggle-card doge">
+                <div class="card-content">
+                    <div class="summary">
+                        <h3>DOGE</h3>
+                        <p>Dogecoin</p>
+                        <p class="price">$0.06</p>
+                        <p class="percentage">-3.50%</p>
+                    </div>
+                    <div class="overlay">
+                        <div class="overlay-content">
+                            <h3>DOGE - Dogecoin</h3>
+                            <p>Price: $0.06</p>
+                            <p>24h Change: -3.50%</p>
+                            <p>Market Cap: $7,000,000,000</p>
+                        </div>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+        <section class="portfolio-summary">
+            <div class="portfolio-value-card">
+                <p>Portfolio Value</p>
+                <h2>$82,441</h2>
+                <p>Daily Change: -2.18%</p>
+
+                <!-- Buy and Sell Buttons -->
+                <div class="action-buttons">
+                    <button class="buy-button">
+                        Buy <span>&uarr;</span>
+                    </button>
+                    <button class="sell-button">
+                        Sell <span>&darr;</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="balance-input-card">
+                <label for="balance">Enter Balance for Stock Purchase:</label>
+                <input type="number" id="balance" name="balance" placeholder="Enter amount...">
+            </div>
+
+            <div class="crypto-table">
+                <h2>Market Trends for {{ symbol }}</h2>
+
+                <!-- Search Form for Stock Symbol -->
+                <form method="POST" action="{{ url_for('dashboard') }}">
+                    <label for="symbol">Enter Stock Symbol:</label>
+                    <input type="text" id="symbol" name="symbol" placeholder="e.g., AAPL" required>
+                    <button type="submit">Search</button>
+                </form>
+
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Open</th>
+                        <th>High</th>
+                        <th>Low</th>
+                        <th>Close</th>
+                        <th>Volume</th>
+                    </tr>
+                    {% if market_data %}
+                        {% for date, row in market_data.items() %}
+                        <tr>
+                            <td>{{ date.date() }}</td>
+                            <td>{{ row['Open'] }}</td>
+                            <td>{{ row['High'] }}</td>
+                            <td>{{ row['Low'] }}</td>
+                            <td>{{ row['Close'] }}</td>
+                            <td>{{ row['Volume'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="6">No data available</td></tr>
+                    {% endif %}
+                </table>
+            </div>
+        </section>
+    </div>
 </body>
 </html>

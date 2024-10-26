@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,27 +76,65 @@
         #chat-toggle:hover {
             background-color: #005bb5;
         }
+
+        .page-container {
+            padding: 100px 20px; /* Added top padding to push content below the navbar */
+            display: flex;
+            justify-content: space-between; /* Space between left and right content */
+            align-items: flex-start; /* Align items to the top */
+        }
+
+        .left-content {
+            width: 40%; /* Adjusted width */
+            position: relative; /* For the background image */
+            color: white;
+            padding: 20px;
+            height: calc(100vh - 100px); /* Full height minus navbar */
+        }
+
+        .bold-text {
+            font-weight: bold;
+            font-size: 2em; /* Adjust size as needed */
+            margin-bottom: 20px; /* Space below the text */
+            color: white; /* Text color */
+        }
+
+        .left-content::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: url("your-background-image-url.jpg"); /* Replace with your image URL */
+            background-size: cover;
+            opacity: 0.3; /* Adjust opacity for better visibility */
+            z-index: -1; /* Send it behind the text */
+        }
     </style>
 </head>
-<nav class="navbar">
-    <a href="/" class="logo">
-        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
-    </a>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/contact">Contact Us</a></li>
-        <li><a href="/login">User Login</a></li>
-    </ul>
-</nav>
 <body>
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        </a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/login">User Login</a></li>
+        </ul>
+    </nav>
+
     <div class="page-container">
         <div class="left-content">
-            <h1>Talk with our sales team</h1>
+            <h1>Login Details</h1>
+            <p>Your existing login details go here.</p>
+            <div class="bold-text">Talk to the right people</div>
         </div>
 
         <div class="form-container">
-            <form action="submit_form.php" method="POST" class="contact-form">
+            <form action="#" method="POST" class="contact-form">
                 <div class="form-group">
                     <label for="firstName">First Name *</label>
                     <input type="text" id="firstName" name="firstName" placeholder="e.g., John" required>
@@ -108,117 +147,79 @@
 
                 <div class="form-group">
                     <label for="email">Company Email *</label>
-                    <input type="email" id="email" name="email" placeholder="name@company.com" required>
+                    <input type="email" id="email" name="email" placeholder="john.smith@company.com" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">Phone Number *</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+1 555 655 5656" required>
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" placeholder="Type your message here" required></textarea>
                 </div>
 
-                <div class="form-group">
-                    <label for="companySize">Company Size *</label>
-                    <select id="companySize" name="companySize" required>
-                        <option value="">Select...</option>
-                        <option value="small">1-10 Employees</option>
-                        <option value="medium">11-50 Employees</option>
-                        <option value="large">51+ Employees</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="country">Country *</label>
-                    <select id="country" name="country" required>
-                        <option value="">Select...</option>
-                        <option value="US">United States</option>
-                        <option value="UK">United Kingdom</option>
-                        <option value="CA">Canada</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="discussion">What would you like to discuss? *</label>
-                    <textarea id="discussion" name="discussion" placeholder="Tell us about your team and provide some details..." required></textarea>
-                </div>
-
-                <button type="submit">Submit</button>
+                <button type="submit">Send Message</button>
             </form>
         </div>
-    </div>
+        
+        <div id="chatbot">
+            <div id="chat-header">Chatbot</div>
+            <div id="chat-content"></div>
+            <input type="text" id="message-input" placeholder="Type your message..." />
+            <button id="send">Send</button>
+        </div>
 
-    <!-- Chatbot Implementation -->
-    <div id="chatbot">
-        <div id="chat-header">Chat with Us</div>
-        <div id="chat-content"></div>
-        <input type="text" id="message" placeholder="Type a message..." />
-        <button id="send">Send</button>
+        <button id="chat-toggle">Chat</button>
     </div>
-
-    <button id="chat-toggle">Chat</button>
 
     <script>
-        // Toggle chatbot visibility with animation
+        // Toggle chat display
         const chatbot = document.getElementById('chatbot');
+        const chatHeader = document.getElementById('chat-header');
         const chatToggle = document.getElementById('chat-toggle');
         const chatContent = document.getElementById('chat-content');
 
-        chatToggle.addEventListener('click', () => {
-            const isVisible = chatbot.style.transform === 'translateY(0%)';
-            if (isVisible) {
-                chatbot.style.transform = 'translateY(100%)'; // Hide chatbot
-                chatContent.style.display = 'none'; // Hide chat content
-            } else {
-                chatbot.style.transform = 'translateY(0%)'; // Show chatbot
-                chatContent.style.display = 'block'; // Show chat content
-            }
-        });
+        chatHeader.onclick = function() {
+            const isVisible = chatContent.style.display === 'block';
+            chatContent.style.display = isVisible ? 'none' : 'block';
+            chatbot.style.transform = isVisible ? 'translateY(100%)' : 'translateY(0)';
+        };
 
-        // Send message handling
+        chatToggle.onclick = function() {
+            chatHeader.click(); // Toggle chat when the button is clicked
+        };
+
         const sendButton = document.getElementById('send');
-        const messageInput = document.getElementById('message');
+        const messageInput = document.getElementById('message-input');
 
-        sendButton.addEventListener('click', async () => {
-            const message = messageInput.value;
-            if (message.trim() !== '') {
-                const userMessage = document.createElement('div');
-                userMessage.textContent = `You: ${message}`;
-                chatContent.appendChild(userMessage);
-                messageInput.value = ''; // Clear input field
+        sendButton.onclick = function() {
+            const userQuery = messageInput.value.trim();
+            if (userQuery) {
+                appendMessage('User: ' + userQuery);
+                messageInput.value = ''; // Clear input
 
-                // Send user message to the API
-                try {
-                    console.log("Sending message:", message); // Log the message being sent
-                    const response = await fetch('YOUR_API_ENDPOINT_HERE', { // Replace with actual API endpoint
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer AIzaSyBVwUzrHhsr8grT7azsY4dl56TNsZFlwoM` // Your API key here
-                        },
-                        body: JSON.stringify({ message: message })
-                    });
-
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-
-                    const data = await response.json(); // Assuming response is JSON
-                    console.log("Received data:", data); // Log the response data
-                    const botResponse = document.createElement('div');
-                    botResponse.textContent = `Bot: ${data.reply}`; // Adjust based on actual response structure
-                    chatContent.appendChild(botResponse);
-                    
-                } catch (error) {
+                // Send message to server
+                fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query: userQuery })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    appendMessage('Bot: ' + data.response);
+                })
+                .catch(error => {
                     console.error('Error:', error);
-                    const errorMessage = document.createElement('div');
-                    errorMessage.textContent = 'Bot: Sorry, there was an error. Please try again.';
-                    chatContent.appendChild(errorMessage);
-                }
-
-                // Auto scroll to the bottom of chat content
-                chatContent.scrollTop = chatContent.scrollHeight;
+                    appendMessage('Bot: Sorry, there was an error. Please try again.');
+                });
             }
-        });
+        };
+
+        function appendMessage(message) {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            chatContent.appendChild(messageElement);
+            chatContent.scrollTop = chatContent.scrollHeight; // Auto scroll to the bottom
+        }
     </script>
 </body>
 </html>
-
